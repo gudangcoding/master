@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<title>Belajar Angular</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+	<h1>Belajar angular Pertama Belajar Filter Dan Repeat</h1>
+	<div ng-init="data =[
+		{nama : 'Nefri', kota : 'Bekasi'},
+		{nama : 'Naura', kota : 'Bekasi'},
+		{nama : 'Naufal', kota : 'Jakarta'}
+		]">
+	</div>
+	<input type="text" ng-model="saring">
+	<ul>
+		<li ng-repeat="ds in data|filter:saring|orderBy:'nama'">{{ds.nama}}</li>
+	</ul>
+</body>
+</html>
