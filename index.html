@@ -1,13 +1,109 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<title>Belajar Angular Pertama</title>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<style type="text/css">
+		p{color:green; font-weight: bold}
+		.button{cursor:pointer;}
+	</style>
+</head>
 <body>
+<div ng-app="myApp" ng-controller="cntrl">
+	<form>
+		<table>
+			<tr>
+				<td>id</td>
+				<td>:</td>
+				<td><input type="text" ng-model="id" name="id" ng-disabled="obj.idisable" placeholder="Harus Angka"></td>
+			</tr>
+			<tr>
+				<td>nama</td>
+				<td>:</td>
+				<td><input type="text" ng-model="nama" name="id"></td>
+			</tr>
+			<tr>
+				<td>Alamat</td>
+				<td>:</td>
+				<td><textarea type="text" ng-model="alamat" name="id"></textarea></td>
+			</tr>
+			<tr>
+				<td>Jenis Kelamin</td>
+				<td>:</td>
+				<td> <input type="radio" ng-model="jenis" name="id" value="laki-laki" selected>Laki-laki 
+					<input type="radio" ng-model="jenis" name="id" value="perempuan">Perempuan</td>
+				<p>{{msg}}</p>
+			</tr>
+			<tr>		
+				<td colspan="3"><input type="button" class="button" value="{{btnName}}" ng-click="insertdata()">
+								<input type="reset" class="button" value="clear"></td>
+			</tr>
+		</table>
+	</form>
+<!-- table untuk menampilkan data-->
+	<table border="1" cellspacing="0">
+		<tr>
+			<th>id</th>
+			<th>nama</th>
+			<th>alamat</th>
+			<th>jenis kelamin</th>
+			<th>Action</th>
+		</tr>
 
-<div ng-app="">
-  <p>Name : <input type="text" ng-model="name"></p>
-  <h1>Hello {{name}}</h1>
+		<tr ng-repeat="murid in data">
+			<td>{{murid.id}}</td>
+			<td>{{murid.nama}}</td>
+			<td>{{murid.alamat}}</td>
+			<td>{{murid.jeniskelamin}}</td>
+			<td><button ng-click="deleteStud(murid.id);">Delete</button>
+			<button ng-click="editStud(murid.id, murid.nama, murid.alamat, murid.jeniskelamin);">Edit</button></td>
+		</tr>
+	</table>
 </div>
 
+	<script type="text/javascript">
+		var app=angular.module('myApp',[]);
+		app.controller('cntrl', function($scope,$http){
+//---------			
+			$scope.obj={'idisable':false};
+			$scope.btnName="Insert";
+//-----
+
+
+			$scope.insertdata=function(){
+				$http.post("input.php",{'id':$scope.id, 'nama':$scope.nama, 'alamat':$scope.alamat,'jenis':$scope.jenis, 'btnName':$scope.btnName})
+				.success(function(){
+					$scope.msg="Data Berhasil Disimpan";
+					$scope.displayStud();
+				})
+			}
+	//proses untuk menampilkan data dari file tampil.php
+		$scope.displayStud=function(){
+				$http.get("tampil.php")
+				.success(function(data){
+					$scope.data=data
+				})
+			}
+	//proses untuk Delete data dari file hapus.php	
+			$scope.deleteStud=function(studid){
+				$http.post("hapus.php",{'id':studid})
+				.success(function(){
+					$scope.msg="Data Berhasil Dihapus";
+					$scope.displayStud();
+				})
+			}
+	//proses menampilkan data saat di update
+		$scope.editStud=function(id, nama, alamat, jeniskelamin){ 
+				$scope.id=id;
+				$scope.nama=nama;
+				$scope.alamat=alamat;
+				$scope.jenis=jeniskelamin;
+				$scope.btnName="Update";
+				$scope.obj.idisable=true;
+				$scope.displayStud();
+			}
+
+		});
+	</script>
 </body>
 </html>
