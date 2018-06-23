@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Crud Angular</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	<style type="text/css">
-		p{color:green; font-weight: bold}
-		.button{cursor:pointer;}
-	</style>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
 </head>
 <body>
-<div ng-app="myApp" ng-controller="cntrl">
+
+<div class="container" ng-app="myApp" ng-controller="cntrl">
+	<h1>Crud Angular</h1>
 	<form>
-		<table>
+		<table class="table">
 			<tr>
 				<td>id</td>
 				<td>:</td>
-				<td><input type="text" ng-model="id" name="id" ng-disabled="obj.idisable" placeholder="Harus Angka"></td>
+				<td><input type="text" ng-model="id" name="id" ng-disabled="obj.idisable" placeholder="Harus Angka" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>nama</td>
 				<td>:</td>
-				<td><input type="text" ng-model="nama" name="id"></td>
+				<td><input type="text" ng-model="nama" name="id" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Alamat</td>
 				<td>:</td>
-				<td><textarea type="text" ng-model="alamat" name="id"></textarea></td>
+				<td><textarea type="text" ng-model="alamat" name="id" class="form-control"></textarea></td>
 			</tr>
 			<tr>
 				<td>Jenis Kelamin</td>
 				<td>:</td>
 				<td> <input type="radio" ng-model="jenis" name="id" value="laki-laki" selected>Laki-laki 
 					<input type="radio" ng-model="jenis" name="id" value="perempuan">Perempuan</td>
-				<p>{{msg}}</p>
+				<p class="alert">{{msg}}</p>
 			</tr>
 			<tr>		
-				<td colspan="3"><input type="button" class="button" value="{{btnName}}" ng-click="insertdata()">
-								<input type="reset" class="button" value="clear"></td>
+				<td colspan="3"><input class="btn btn-success" type="button" class="button" value="{{btnName}}" ng-click="insertdata()">
+								<input class="btn" type="reset" class="button" value="clear"></td>
 			</tr>
 		</table>
 	</form>
 <!-- table untuk menampilkan data-->
-	<table border="1" cellspacing="0">
+	<table border="1" cellspacing="0" class="table table-bordered">
 		<tr>
 			<th>id</th>
 			<th>nama</th>
@@ -55,8 +54,8 @@
 			<td>{{murid.nama}}</td>
 			<td>{{murid.alamat}}</td>
 			<td>{{murid.jeniskelamin}}</td>
-			<td><button ng-click="deleteStud(murid.id);">Delete</button>
-			<button ng-click="editStud(murid.id, murid.nama, murid.alamat, murid.jeniskelamin);">Edit</button></td>
+			<td><button class="btn btn-xs btn-warning" ng-click="deleteStud(murid.id);">Delete</button>
+			<button class="btn btn-xs btn-danger" ng-click="editStud(murid.id, murid.nama, murid.alamat, murid.jeniskelamin);">Edit</button></td>
 		</tr>
 	</table>
 </div>
